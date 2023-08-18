@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import { getFilteredContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
+import { addContactsThunk } from 'redux/contacts/thunk';
 import { Button, Form, Input, Label } from './ContactForm.styled';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(getFilteredContacts);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   // зміна значень інпутів
@@ -43,7 +42,7 @@ const ContactForm = () => {
     }
 
     //виклик з App з передачею нового контакту
-    dispatch(addContact({ name, number }));
+    dispatch(addContactsThunk({ name, number }));
     setName('');
     setNumber('');
   };
