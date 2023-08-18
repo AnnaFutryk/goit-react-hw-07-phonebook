@@ -1,13 +1,18 @@
-export const getContacts = state => state.contacts.items; // повертає список контактів зі стану
+import { createSelector } from '@reduxjs/toolkit';
 
-export const getFilter = state => state.filter; // повертає вдфільтроване зі стану
+export const getIsLoading = state => state.contacts.isLoading;
 
-export const getFilteredContacts = state => {
-  const contacts = getContacts(state); // отримуємо список контактів
-  const filter = getFilter(state); // відфільтроване
-  const normalizedFilter = filter.toLowerCase();
+export const getError = state => state.contacts.error;
 
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter)
-  );
-};
+export const getContacts = state => state.contacts.items;
+
+export const getFilter = state => state.filter;
+
+export const getFilteredContacts = createSelector(
+  [getContacts, getFilter],
+  (contacts, filter) => {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  }
+);
