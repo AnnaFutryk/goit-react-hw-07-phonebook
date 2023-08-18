@@ -2,9 +2,9 @@ import {
   addContactsThunk,
   deleteContactsThunk,
   getContactsThunk,
-} from './thunk';
+} from 'redux/contacts/thunk';
 
-arrThunk = [addContactsThunk, deleteContactsThunk, getContactsThunk];
+const arrThunk = [addContactsThunk, deleteContactsThunk, getContactsThunk];
 
 export const operationSwitcher = type => arrThunk.map(el => el[type]);
 
@@ -26,11 +26,11 @@ export const handleFulfilledAdd = (state, { payload }) => {
   state.items.push(payload);
 };
 
-export const handleFulfilledDel = (state, { payload }) => {
-  state.items = payload;
+export const handleRejected = (state, { payload }) => {
+  state.error = payload;
 };
 
-export const handleRejected = (state, { payload }) => {
+export const handleFulfilledDel = (state, { payload }) => {
   state.isLoading = false;
-  state.error = state.items.filter(contact => contact.id !== payload.id);
+  state.items = state.items.filter(item => item.id !== payload.id);
 };
