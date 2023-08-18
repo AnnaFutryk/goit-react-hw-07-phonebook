@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { persistStore } from 'redux-persist';
 import {
   FLUSH,
   REHYDRATE,
@@ -8,7 +7,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { contactsReducer } from './contactsSlice';
+import { contactsReducer } from './contacts/slice';
 import { filterReducer } from './filterSlice';
 
 // створюємо store
@@ -26,6 +25,3 @@ export const store = configureStore({
       },
     }),
 });
-
-//створення стора, який зберігає стан при перезавантаженні
-export const persistor = persistStore(store);
