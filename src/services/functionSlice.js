@@ -12,9 +12,9 @@ export const handlePending = state => {
   state.isLoading = true;
 };
 
-export const handleFulfilled = state => {
+export const handleFulfilled = (state, { error }) => {
   state.isLoading = false;
-  state.error = '';
+  state.error = error ? error.message : '';
 };
 
 export const handleFulfilledGet = (state, { payload }) => {
